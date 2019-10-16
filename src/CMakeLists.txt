@@ -35,7 +35,10 @@ endif()
 
 # Use the IMPORTED target from newer versions of ccd-config.cmake if available,
 # otherwise fall back to CCD_INCLUDE_DIRS and CCD_LIBRARIES
-if(TARGET ccd)
+if(FCL_BUILD_CCD)
+  target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC $<BUILD_INTERFACE:${CCD_SOURCE_DIR}/src>)
+  target_link_libraries(${PROJECT_NAME} PUBLIC ccd)
+elseif(TARGET ccd)
   target_link_libraries(${PROJECT_NAME} PUBLIC ccd)
 else()
   target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC "${CCD_INCLUDE_DIRS}")
@@ -53,7 +56,7 @@ if(TARGET Eigen3::Eigen)
 elseif(EIGEN3_INCLUDE_DIRS)
   target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC "${EIGEN3_INCLUDE_DIRS}")
 else()
-  target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC "${EIGEN3_INCLUDE_DIR}")
+  target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC $<BUILD_INTERFACE:${EIGEN3_INCLUDE_DIR}>)
 endif()
 
 if(FCL_HAVE_OCTOMAP)
