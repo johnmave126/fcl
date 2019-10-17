@@ -166,7 +166,7 @@ endif()
 #===============================================================================
 option(FCL_BUILD_CCD "Whether to build libccd from scratch" OFF)
 if(FCL_BUILD_CCD)
-  set(BUILD_SHARED_LIBS ${FCL_STATIC_LIBRARY} CACHE BOOL " " FORCE)
+  set(BUILD_SHARED_LIBS $<NOT:FCL_STATIC_LIBRARY> CACHE BOOL " " FORCE)
   add_subdirectory(${CCD_SOURCE_DIR} ${CCD_SOURCE_DIR})
 else()
   find_package(ccd QUIET)
