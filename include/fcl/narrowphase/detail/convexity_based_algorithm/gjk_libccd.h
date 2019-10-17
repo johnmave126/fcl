@@ -61,6 +61,34 @@
 #include "fcl/narrowphase/detail/convexity_based_algorithm/list.h"
 #include "fcl/narrowphase/detail/convexity_based_algorithm/gjk_libccd.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+void ccdFirstDirDefault(const void *o1, const void *o2,
+                                    ccd_vec3_t *dir);
+
+int ccdGJKIntersect(const void *obj1, const void *obj2,
+                                const ccd_t *ccd);
+
+int ccdGJKSeparate(const void *obj1, const void *obj2,
+                               const ccd_t *ccd, ccd_vec3_t *sep);
+
+int ccdGJKPenetration(const void *obj1, const void *obj2,
+                                  const ccd_t *ccd, ccd_real_t *depth,
+                                  ccd_vec3_t *dir, ccd_vec3_t *pos);
+
+int ccdMPRIntersect(const void *obj1, const void *obj2,
+                                const ccd_t *ccd);
+
+int ccdMPRPenetration(const void *obj1, const void *obj2,
+                                  const ccd_t *ccd, ccd_real_t *depth,
+                                  ccd_vec3_t *dir, ccd_vec3_t *pos);
+
+#ifdef __cplusplus
+} /* extern "C" */
+#endif /* __cplusplus */
+
 namespace fcl
 {
 
